@@ -1,0 +1,305 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище pp01Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Gruppa">
+          <Key>
+            <PropertyRef Name="id_gruppa" />
+          </Key>
+          <Property Name="id_gruppa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name_gruppa" Type="nvarchar" MaxLength="100" />
+          <Property Name="svedeniy" Type="nvarchar(max)" />
+          <Property Name="id_trener" Type="int" />
+        </EntityType>
+        <EntityType Name="Obuchau">
+          <Key>
+            <PropertyRef Name="id_obuch" />
+          </Key>
+          <Property Name="id_obuch" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="f_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="l_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="data_rozd" Type="date" />
+          <Property Name="id_gruppa" Type="int" />
+        </EntityType>
+        <EntityType Name="Raspicanie">
+          <Key>
+            <PropertyRef Name="id_rasp" />
+          </Key>
+          <Property Name="id_rasp" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_gruppa" Type="int" Nullable="false" />
+          <Property Name="id_trener" Type="int" Nullable="false" />
+          <Property Name="data_z" Type="date" />
+          <Property Name="time_z" Type="time" Precision="7" />
+        </EntityType>
+        <EntityType Name="Trener">
+          <Key>
+            <PropertyRef Name="id_trener" />
+          </Key>
+          <Property Name="id_trener" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fio" Type="nvarchar(max)" />
+          <Property Name="dolzhnoct" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK__Gruppa__id_trene__29572725">
+          <End Role="Trener" Type="Self.Trener" Multiplicity="0..1" />
+          <End Role="Gruppa" Type="Self.Gruppa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Trener">
+              <PropertyRef Name="id_trener" />
+            </Principal>
+            <Dependent Role="Gruppa">
+              <PropertyRef Name="id_trener" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Obuchau__id_grup__2C3393D0">
+          <End Role="Gruppa" Type="Self.Gruppa" Multiplicity="0..1" />
+          <End Role="Obuchau" Type="Self.Obuchau" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gruppa">
+              <PropertyRef Name="id_gruppa" />
+            </Principal>
+            <Dependent Role="Obuchau">
+              <PropertyRef Name="id_gruppa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Raspicani__id_gr__2F10007B">
+          <End Role="Gruppa" Type="Self.Gruppa" Multiplicity="1" />
+          <End Role="Raspicanie" Type="Self.Raspicanie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gruppa">
+              <PropertyRef Name="id_gruppa" />
+            </Principal>
+            <Dependent Role="Raspicanie">
+              <PropertyRef Name="id_gruppa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Raspicani__id_tr__300424B4">
+          <End Role="Trener" Type="Self.Trener" Multiplicity="1" />
+          <End Role="Raspicanie" Type="Self.Raspicanie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Trener">
+              <PropertyRef Name="id_trener" />
+            </Principal>
+            <Dependent Role="Raspicanie">
+              <PropertyRef Name="id_trener" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище pp01ModelContainer">
+          <EntitySet Name="Gruppa" EntityType="Self.Gruppa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Obuchau" EntityType="Self.Obuchau" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Raspicanie" EntityType="Self.Raspicanie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Trener" EntityType="Self.Trener" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Gruppa__id_trene__29572725" Association="Self.FK__Gruppa__id_trene__29572725">
+            <End Role="Trener" EntitySet="Trener" />
+            <End Role="Gruppa" EntitySet="Gruppa" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Obuchau__id_grup__2C3393D0" Association="Self.FK__Obuchau__id_grup__2C3393D0">
+            <End Role="Gruppa" EntitySet="Gruppa" />
+            <End Role="Obuchau" EntitySet="Obuchau" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Raspicani__id_gr__2F10007B" Association="Self.FK__Raspicani__id_gr__2F10007B">
+            <End Role="Gruppa" EntitySet="Gruppa" />
+            <End Role="Raspicanie" EntitySet="Raspicanie" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Raspicani__id_tr__300424B4" Association="Self.FK__Raspicani__id_tr__300424B4">
+            <End Role="Trener" EntitySet="Trener" />
+            <End Role="Raspicanie" EntitySet="Raspicanie" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="pp01Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Gruppa">
+          <Key>
+            <PropertyRef Name="id_gruppa" />
+          </Key>
+          <Property Name="id_gruppa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name_gruppa" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="svedeniy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="id_trener" Type="Int32" />
+          <NavigationProperty Name="Trener" Relationship="Self.FK__Gruppa__id_trene__29572725" FromRole="Gruppa" ToRole="Trener" />
+          <NavigationProperty Name="Obuchau" Relationship="Self.FK__Obuchau__id_grup__2C3393D0" FromRole="Gruppa" ToRole="Obuchau" />
+          <NavigationProperty Name="Raspicanie" Relationship="Self.FK__Raspicani__id_gr__2F10007B" FromRole="Gruppa" ToRole="Raspicanie" />
+        </EntityType>
+        <EntityType Name="Obuchau">
+          <Key>
+            <PropertyRef Name="id_obuch" />
+          </Key>
+          <Property Name="id_obuch" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="f_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="l_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="data_rozd" Type="DateTime" Precision="0" />
+          <Property Name="id_gruppa" Type="Int32" />
+          <NavigationProperty Name="Gruppa" Relationship="Self.FK__Obuchau__id_grup__2C3393D0" FromRole="Obuchau" ToRole="Gruppa" />
+        </EntityType>
+        <EntityType Name="Raspicanie">
+          <Key>
+            <PropertyRef Name="id_rasp" />
+          </Key>
+          <Property Name="id_rasp" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_gruppa" Type="Int32" Nullable="false" />
+          <Property Name="id_trener" Type="Int32" Nullable="false" />
+          <Property Name="data_z" Type="DateTime" Precision="0" />
+          <Property Name="time_z" Type="Time" Precision="7" />
+          <NavigationProperty Name="Gruppa" Relationship="Self.FK__Raspicani__id_gr__2F10007B" FromRole="Raspicanie" ToRole="Gruppa" />
+          <NavigationProperty Name="Trener" Relationship="Self.FK__Raspicani__id_tr__300424B4" FromRole="Raspicanie" ToRole="Trener" />
+        </EntityType>
+        <EntityType Name="Trener">
+          <Key>
+            <PropertyRef Name="id_trener" />
+          </Key>
+          <Property Name="id_trener" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fio" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="dolzhnoct" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Gruppa" Relationship="Self.FK__Gruppa__id_trene__29572725" FromRole="Trener" ToRole="Gruppa" />
+          <NavigationProperty Name="Raspicanie" Relationship="Self.FK__Raspicani__id_tr__300424B4" FromRole="Trener" ToRole="Raspicanie" />
+        </EntityType>
+        <Association Name="FK__Gruppa__id_trene__29572725">
+          <End Role="Trener" Type="Self.Trener" Multiplicity="0..1" />
+          <End Role="Gruppa" Type="Self.Gruppa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Trener">
+              <PropertyRef Name="id_trener" />
+            </Principal>
+            <Dependent Role="Gruppa">
+              <PropertyRef Name="id_trener" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Obuchau__id_grup__2C3393D0">
+          <End Role="Gruppa" Type="Self.Gruppa" Multiplicity="0..1" />
+          <End Role="Obuchau" Type="Self.Obuchau" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gruppa">
+              <PropertyRef Name="id_gruppa" />
+            </Principal>
+            <Dependent Role="Obuchau">
+              <PropertyRef Name="id_gruppa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Raspicani__id_gr__2F10007B">
+          <End Role="Gruppa" Type="Self.Gruppa" Multiplicity="1" />
+          <End Role="Raspicanie" Type="Self.Raspicanie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gruppa">
+              <PropertyRef Name="id_gruppa" />
+            </Principal>
+            <Dependent Role="Raspicanie">
+              <PropertyRef Name="id_gruppa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Raspicani__id_tr__300424B4">
+          <End Role="Trener" Type="Self.Trener" Multiplicity="1" />
+          <End Role="Raspicanie" Type="Self.Raspicanie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Trener">
+              <PropertyRef Name="id_trener" />
+            </Principal>
+            <Dependent Role="Raspicanie">
+              <PropertyRef Name="id_trener" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="pp01Entities4" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Gruppa" EntityType="Self.Gruppa" />
+          <EntitySet Name="Obuchau" EntityType="Self.Obuchau" />
+          <EntitySet Name="Raspicanie" EntityType="Self.Raspicanie" />
+          <EntitySet Name="Trener" EntityType="Self.Trener" />
+          <AssociationSet Name="FK__Gruppa__id_trene__29572725" Association="Self.FK__Gruppa__id_trene__29572725">
+            <End Role="Trener" EntitySet="Trener" />
+            <End Role="Gruppa" EntitySet="Gruppa" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Obuchau__id_grup__2C3393D0" Association="Self.FK__Obuchau__id_grup__2C3393D0">
+            <End Role="Gruppa" EntitySet="Gruppa" />
+            <End Role="Obuchau" EntitySet="Obuchau" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Raspicani__id_gr__2F10007B" Association="Self.FK__Raspicani__id_gr__2F10007B">
+            <End Role="Gruppa" EntitySet="Gruppa" />
+            <End Role="Raspicanie" EntitySet="Raspicanie" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Raspicani__id_tr__300424B4" Association="Self.FK__Raspicani__id_tr__300424B4">
+            <End Role="Trener" EntitySet="Trener" />
+            <End Role="Raspicanie" EntitySet="Raspicanie" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище pp01ModelContainer" CdmEntityContainer="pp01Entities4">
+          <EntitySetMapping Name="Gruppa">
+            <EntityTypeMapping TypeName="pp01Model.Gruppa">
+              <MappingFragment StoreEntitySet="Gruppa">
+                <ScalarProperty Name="id_gruppa" ColumnName="id_gruppa" />
+                <ScalarProperty Name="name_gruppa" ColumnName="name_gruppa" />
+                <ScalarProperty Name="svedeniy" ColumnName="svedeniy" />
+                <ScalarProperty Name="id_trener" ColumnName="id_trener" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Obuchau">
+            <EntityTypeMapping TypeName="pp01Model.Obuchau">
+              <MappingFragment StoreEntitySet="Obuchau">
+                <ScalarProperty Name="id_obuch" ColumnName="id_obuch" />
+                <ScalarProperty Name="f_name" ColumnName="f_name" />
+                <ScalarProperty Name="l_name" ColumnName="l_name" />
+                <ScalarProperty Name="data_rozd" ColumnName="data_rozd" />
+                <ScalarProperty Name="id_gruppa" ColumnName="id_gruppa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Raspicanie">
+            <EntityTypeMapping TypeName="pp01Model.Raspicanie">
+              <MappingFragment StoreEntitySet="Raspicanie">
+                <ScalarProperty Name="id_rasp" ColumnName="id_rasp" />
+                <ScalarProperty Name="id_gruppa" ColumnName="id_gruppa" />
+                <ScalarProperty Name="id_trener" ColumnName="id_trener" />
+                <ScalarProperty Name="data_z" ColumnName="data_z" />
+                <ScalarProperty Name="time_z" ColumnName="time_z" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Trener">
+            <EntityTypeMapping TypeName="pp01Model.Trener">
+              <MappingFragment StoreEntitySet="Trener">
+                <ScalarProperty Name="id_trener" ColumnName="id_trener" />
+                <ScalarProperty Name="fio" ColumnName="fio" />
+                <ScalarProperty Name="dolzhnoct" ColumnName="dolzhnoct" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
